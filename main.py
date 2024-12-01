@@ -123,6 +123,9 @@ def commit_changes():
             repo2.git.add(A=True)  # 添加所有变更
             repo2.index.commit(commit_message)  # 提交变更
             messagebox.showinfo("成功", "更改已提交！")
+            origin = repo2.remotes.origin
+            origin.push()
+
         else:
             messagebox.showinfo("信息", "没有未提交的更改。")
     except GitCommandError as e:
@@ -158,7 +161,7 @@ def create_gui():
     clone_button.grid(row=1, column=2, padx=10, pady=5)
 
     # 第三行：第一个仓库切换分支
-    tk.Label(root, text="第一个仓库分支:").grid(row=2, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(root, text="源仓库分支:").grid(row=2, column=0, padx=10, pady=5, sticky="e")
     branch1_entry = tk.Entry(root, width=40)
     branch1_entry.grid(row=2, column=1, padx=10, pady=5)
     branch1_entry.insert(0, data.get("branch1", ""))
@@ -168,7 +171,7 @@ def create_gui():
     branch1_button.grid(row=2, column=2, padx=10, pady=5)
 
     # 第四行：第二个仓库切换分支
-    tk.Label(root, text="第二个仓库分支:").grid(row=3, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(root, text="目标仓库分支:").grid(row=3, column=0, padx=10, pady=5, sticky="e")
     branch2_entry = tk.Entry(root, width=40)
     branch2_entry.grid(row=3, column=1, padx=10, pady=5)
     branch2_entry.insert(0, data.get("branch2", ""))
@@ -178,7 +181,7 @@ def create_gui():
     branch2_button.grid(row=3, column=2, padx=10, pady=5)
 
     # 第五行：复制内容
-    copy_button = tk.Button(root, text="复制内容到第二个仓库", command=copy_contents)
+    copy_button = tk.Button(root, text="复制源仓库文件到目标仓库", command=copy_contents)
     copy_button.grid(row=4, column=1, padx=10, pady=5)
 
     # 第六行：新建分支
