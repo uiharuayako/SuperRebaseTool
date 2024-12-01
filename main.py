@@ -6,7 +6,7 @@ import json
 from git import Repo, GitCommandError
 
 # 定义保存的 JSON 文件路径
-JSON_FILE_PATH = "user_input_data.json"
+JSON_FILE_PATH = "config.json"
 
 
 def load_data():
@@ -200,7 +200,7 @@ def create_gui():
     commit_button.grid(row=6, column=2, padx=10, pady=5)
 
     # 保存按钮
-    save_button = tk.Button(root, text="保存", command=save_data)
+    save_button = tk.Button(root, text="保存当前配置", command=save_data)
     save_button.grid(row=7, column=1, padx=10, pady=5)
 
     # 启动主循环
